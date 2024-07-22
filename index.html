@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Motivational Message App By Aditya</title>
+    <style>
+        * { font-size: 50px; }
+        body { background-color: azure; }
+        h2 { border-style: ridge; width: 70%; border-radius: 30px; }
+    </style>
+    <script>
+        const api_url = "https://type.fit/api/quotes";
+
+        async function getmsg(event) {
+            event.preventDefault();
+            let ans = document.getElementById("ans");
+            let aut = document.getElementById("aut");
+
+            try {
+                const response = await fetch(api_url);
+                const data = await response.json();
+                const randomQuote = data[Math.floor(Math.random() * data.length)];
+                ans.innerHTML = randomQuote.text;
+                aut.innerHTML = randomQuote.author ? randomQuote.author : "Unknown";
+            } catch (err) {
+                alert("issue: " + err);
+            }
+        }
+    </script>
+</head>
+<body>
+    <center>
+        <h1>Motivational Message App By Aditya</h1>
+        <form onsubmit="getmsg(event)">
+            <input type="submit" value="Get Msg" />
+        </form>
+        <h2 id="ans"></h2>
+        <h2 id="aut"></h2>
+    </center>
+</body>
+</html>
